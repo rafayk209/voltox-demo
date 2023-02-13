@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- <script src='https://cdn.jsdelivr.net/npm/voltox-sdk@1.2.5/vanilla.min.js' async defer ></script> -->
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+<head>
+    <title>Voltox Login Demo</title>
+</head>
+<body>
+    <!-- Create a custom button and pass login function to the click listener -->
+    <div class="container">
+
+  </div>
+
+    <div class="container">
+      <form class="form">
+        <button id="login-button"><img src="./logo-gradient_btn.png"> Sign in with Voltox </button>
+      </form>
+    </div>
+
+
+    <!-- <script async defer src="https://cdn.jsdelivr.net/npm/voltox-sdk@1.2.5/vanilla.min.js"></script> -->
+
+    <script async defer id="scriptTag" src="https://cdn.jsdelivr.net/npm/voltox-sdk@1.2.5/vanilla.min.js"></script>
+    <script>
+
+
+window.addEventListener(
+    "message",
+    (e) => {
+console.log(e?.data)
+const hashCode = 'xCseBGzYIpt1+HxCGHMlZp+9/AZSctvvraaaGfsL=';
+if(!e?.data?.success){
+  alert(e?.data?.message)
+}
+getDecodedData(hashCode,e?.data?.credentials, (decodedData) => {
+      alert (JSON.stringify(decodedData));
+       });
+    },
+    false
+);
+        const tag = document.getElementById("scriptTag");
+        tag.addEventListener("load", (e) =>{
+            
+            const button = document.getElementById("login-button");
+            button.addEventListener("click", async(e) =>{
+              e.preventDefault()
+    
+                //Pass Hash Code as first parameter of login function
+                //You'll receive user credentials in window.addEventListener  
+                //when the user is authenticated or error if any problem 
+                //occurs. Once you receive the credentials, pass it to 
+                //getDecodedData function imported from voltox-sdk
+                //You'll receive decoded user data in callback function
+                
+                //NOTE: You can use getDecodedData function on either server or client side
+    
+                const hashCode = 'xCseBGzYIpt1+HxCGHMlZp+9/AZSctvvraaaGfsL=';
+                 await login(hashCode)
+              
+            
+            });
+        });
+    </script>
+    
+</body>
+</html>
